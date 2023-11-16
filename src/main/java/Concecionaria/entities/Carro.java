@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "carro")
+@Table(name = "tb_carro")
 public class Carro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class Carro {
 	private String ano;
 	
 	@ManyToOne
-	@JoinColumn(name = "concecionaria_id")
+	@JoinColumn(name =	 "concecionaria_id")
 	private Concecionaria concecionaria;
 	
 	@ManyToOne
