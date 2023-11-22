@@ -13,14 +13,16 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "tb_concecionaria")
-public class Concecionaria {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String proprietario;
-	
-	@OneToMany
-	private List<Carro> carro;
-	
-	
+public class Concessionaria {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+	private String nome;
+
+    private String proprietario;
+
+    @OneToMany
+    private List<Carro> carros;
 }
+

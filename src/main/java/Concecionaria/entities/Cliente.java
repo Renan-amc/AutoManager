@@ -22,7 +22,6 @@ public class Cliente {
 	private String cpf;
 	private Long idade;
 	
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany
 	private List<Carro> carro;
-
 }

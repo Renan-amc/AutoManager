@@ -22,6 +22,6 @@ public class Funcionario {
 	
 	@ManyToOne
 	@JoinColumn(name = "concecionaria_id")
-	private Concecionaria concecionaria;
+	private Concessionaria concecionaria;
 	
 }

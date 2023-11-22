@@ -1,9 +1,11 @@
 package Concecionaria.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import Concecionaria.entities.Concecionaria;
+import Concecionaria.entities.Concessionaria;
 
-public interface ConcecionariaRepository extends JpaRepository<Concecionaria, Long> {
+@Repository
+public interface ConcessionariaRepository extends JpaRepository<Concessionaria, Long> {
 
 }
