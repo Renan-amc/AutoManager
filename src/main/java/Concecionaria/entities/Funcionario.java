@@ -20,8 +20,4 @@ public class Funcionario {
 	private String cargo;
 	private double salario;
 	
-	@ManyToOne
-	@JoinColumn(name = "concecionaria_id")
-	private Concessionaria concecionaria;
-	
 }

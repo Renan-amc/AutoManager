@@ -24,5 +24,8 @@ public class Concessionaria {
 
     @OneToMany
     private List<Carro> carros;
+
+    @OneToMany
+    private List<Funcionario> funcionarios;
 }
 

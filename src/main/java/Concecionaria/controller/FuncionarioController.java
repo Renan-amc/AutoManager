@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import Concecionaria.entities.Concessionaria;
 import Concecionaria.entities.Funcionario;
 import Concecionaria.repository.FuncionarioRepository;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,13 @@ public class FuncionarioController{
         return funcionario_repository.findAll();
     }
 
+	@GetMapping("/{id}")
+	private Funcionario listar(@PathVariable Long id) {
+		Funcionario funcionarioExistente = funcionario_repository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+		return funcionarioExistente;
+	}
+
     @PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	private Funcionario adicionar(@RequestBody Funcionario funcionario) {
@@ -40,7 +48,6 @@ public class FuncionarioController{
 		funcionarioExistente.setNome(funcionarioAtualizado.getNome());
 		funcionarioExistente.setCargo(funcionarioAtualizado.getCargo());
         funcionarioExistente.setSalario(funcionarioAtualizado.getSalario());
-        funcionarioExistente.setConcecionaria(funcionarioAtualizado.getConcecionaria());
 
 		return funcionario_repository.save(funcionarioExistente);
 	}

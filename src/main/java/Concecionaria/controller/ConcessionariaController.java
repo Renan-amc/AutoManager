@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 
+import Concecionaria.entities.Cliente;
 import Concecionaria.entities.Concessionaria;
 import Concecionaria.repository.ConcessionariaRepository;
 
@@ -25,8 +26,15 @@ public class ConcessionariaController {
     private ConcessionariaRepository concessionaria_repository;
 
     @GetMapping
-	public List<Concessionaria> listar() {
+	private List<Concessionaria> listar() {
 		return concessionaria_repository.findAll();
+	}
+
+	@GetMapping("/{id}")
+	private Concessionaria listar(@PathVariable Long id) {
+		Concessionaria concessioanriaExistente = concessionaria_repository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+		return concessioanriaExistente;
 	}
 	
 	
@@ -44,6 +52,7 @@ public class ConcessionariaController {
 		concessionariaExistente.setProprietario(concessionariaAtualizado.getProprietario());
 		concessionariaExistente.setCarros(concessionariaAtualizado.getCarros());
 		concessionariaExistente.setNome(concessionariaAtualizado.getNome());
+		concessionariaExistente.setFuncionarios(concessionariaAtualizado.getFuncionarios());
 
 		return concessionaria_repository.save(concessionariaExistente);
 	}
