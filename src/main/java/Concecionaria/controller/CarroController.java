@@ -22,17 +22,17 @@ import Concecionaria.repository.CarroRepository;
 public class CarroController {
 
 	@Autowired
-	private CarroRepository carrorepository;
+	private CarroRepository carro_repository;
 
-	@GetMapping("/all")
+	@GetMapping
 	public List<Carro> listar() {
-		return carrorepository.findAll();
+		return carro_repository.findAll();
 	}
 
 	/* Puxa os dados do cliente pelo seu ID */
 	@GetMapping("/{id}")
 	private Carro listar(@PathVariable Long id) {
-		Carro carroExistente = carrorepository.findById(id)
+		Carro carroExistente = carro_repository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Carro não encontrado"));
 		return carroExistente;
 	}
@@ -40,13 +40,13 @@ public class CarroController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	private Carro adicionar(@RequestBody Carro carro) {
-		return carrorepository.save(carro);
+		return carro_repository.save(carro);
 	}
 
 	@PutMapping("/{id}") // caminho chamado: "/carros/id(numero selecionado)"
 	// PathVariable para casar o id posto pelo usuario no id do parametro.
 	private Carro atualizar(@PathVariable Long id, @RequestBody Carro carroAtualizado) {
-		Carro carroExistente = carrorepository.findById(id)
+		Carro carroExistente = carro_repository.findById(id)
 				// pelo id que selecionei ele busca o carro com este id correspondente
 				.orElseThrow(() -> new RuntimeException("Carro não encontrado"));
 		// tratamento de eror caso o carro nâo seja encontrado.
@@ -56,18 +56,19 @@ public class CarroController {
 		carroExistente.setAno(carroAtualizado.getAno());
 		carroExistente.setCor(carroAtualizado.getCor());
 
-		return carrorepository.save(carroExistente);
+		return carro_repository.save(carroExistente);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	private void deletar(@PathVariable Long id) {
-		Carro carroExistente = carrorepository.findById(id)
+		Carro carroExistente = carro_repository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Carro não encontrado!"));
 
 		String modeloCarro = carroExistente.getModelo();
 
-		carrorepository.delete(carroExistente);
-		System.out.println("Cliente deletado - Id: " + id + ", Nome: " + modeloCarro);
+		carro_repository.delete(carroExistente);
+		System.out.println("Carro deletado - Id: " + id + ", Nome: " + modeloCarro);
 	}
+
 }

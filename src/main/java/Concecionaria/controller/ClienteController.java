@@ -16,25 +16,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 /*Importação de entidades e repositorios*/
 import Concecionaria.entities.Cliente;
-import Concecionaria.repository.ClienteRepository;
 
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
 
 	@Autowired
-	private ClienteRepository clienterepository;
+	private Concecionaria.repository.ClienteRepository cliente_repository;
 
 	/* Puxa todos os clientes obtidos na lista */
-	@GetMapping("/all")
+	@GetMapping
 	public List<Cliente> listar() {
-		return clienterepository.findAll();
+		return cliente_repository.findAll();
 	}
 
 	/* Puxa os dados do cliente pelo seu ID */
 	@GetMapping("/{id}")
 	private Cliente listar(@PathVariable Long id) {
-		Cliente clienteExistente = clienterepository.findById(id)
+		Cliente clienteExistente = cliente_repository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 		return clienteExistente;
 	}
@@ -43,13 +42,13 @@ public class ClienteController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	private Cliente adicionar(@RequestBody Cliente cliente) {
-		return clienterepository.save(cliente);
+		return cliente_repository.save(cliente);
 	}
 
 	/* Atualiza objetos clientes chamando pelo numero do seu ID */
 	@PutMapping("/{id}")
 	private Cliente atualizar(@PathVariable Long id, @RequestBody Cliente clienteAtualizado) {
-		Cliente clienteExistente = clienterepository.findById(id)
+		Cliente clienteExistente = cliente_repository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
 		clienteExistente.setNome(clienteAtualizado.getNome());
@@ -57,18 +56,18 @@ public class ClienteController {
 		clienteExistente.setIdade(clienteAtualizado.getIdade());
 		clienteExistente.setCarro(clienteAtualizado.getCarro());
 
-		return clienterepository.save(clienteExistente);
+		return cliente_repository.save(clienteExistente);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	private void deletar(@PathVariable Long id) {
-		Cliente clienteExistente = clienterepository.findById(id)
+		Cliente clienteExistente = cliente_repository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
 
 		String nomeCliente = clienteExistente.getNome(); // Obtém o nome do cliente antes de deletar
 
-		clienterepository.delete(clienteExistente);
+		cliente_repository.delete(clienteExistente);
 
 		System.out.println("Cliente deletado - Id: " + id + ", Nome: " + nomeCliente);
 	}
